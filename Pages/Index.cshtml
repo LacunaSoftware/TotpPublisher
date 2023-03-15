@@ -2,11 +2,12 @@
 @using Microsoft.Extensions.Options
 @using OtpNet
 @model IndexModel
-@inject IOptions<TotpConfiguration> config
+@inject IOptions<GeneralConfig> generalConfig
+@inject IOptions<TotpConfig> totpConfig
 @{
     ViewData["Title"] = "TOTP Publisher";
 
-    var totp = new Totp(Base32Encoding.ToBytes(config.Value.Seed), config.Value.Step, config.Value.Mode, config.Value.Size);
+    var totp = new Totp(Base32Encoding.ToBytes(totpConfig.Value.Seed), totpConfig.Value.Step, totpConfig.Value.Mode, totpConfig.Value.Size);
     var currentValue = totp.ComputeTotp();
     var updateIn = totp.RemainingSeconds();
 }
@@ -15,12 +16,12 @@
     <h1 class="display-4">@currentValue</h1>
     <h2>Updating in <span id="updateInText">@updateIn</span></h2>
     
-    @if (config.Value.Debug) {
+    @if (generalConfig.Value.Debug) {
         <h3 class="text-danger">Warning: debug mode is ON !</h3>
-        <p>Seed: @config.Value.Seed</p>
-        <p>Step: @config.Value.Step</p>
-        <p>Mode: @config.Value.Mode</p>
-        <p>Size: @config.Value.Size</p>
+        <p>Seed: @totpConfig.Value.Seed</p>
+        <p>Step: @totpConfig.Value.Step</p>
+        <p>Mode: @totpConfig.Value.Mode</p>
+        <p>Size: @totpConfig.Value.Size</p>
     }
 </div>
 

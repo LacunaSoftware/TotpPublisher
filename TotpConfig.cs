@@ -2,7 +2,7 @@
 
 namespace TotpPublisher {
 	
-	public class TotpConfiguration {
+	public class TotpConfig {
 
 		public string Seed { get; set; }
 
@@ -11,7 +11,5 @@ namespace TotpPublisher {
 		public int Size { get; set; } = 6;
 
 		public int Step { get; set; } = 30;
-
-		public bool Debug { get; set; }
 	}
 }

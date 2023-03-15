@@ -1,9 +1,14 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.Extensions.Options
+@inject IOptions<GeneralConfig> generalConfig
+@{
+    var siteName = !string.IsNullOrEmpty(generalConfig.Value.SiteName) ? generalConfig.Value.SiteName : "TOTP Publisher";
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - TotpPublisher</title>
+    <title>@siteName</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TotpPublisher.styles.css" asp-append-version="true" />
@@ -12,7 +17,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">TOTP Publisher</a>
+                <a class="navbar-brand" asp-area="" asp-page="/Index">@siteName</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -41,6 +46,8 @@
             Built by <a href="https://www.lacunasoftware.com/" target="_blank">Lacuna Software</a> using <a href="https://github.com/kspearrin/Otp.NET" target="_blank">Otp.NET</a>
             &ndash;
             <a href="https://github.com/LacunaSoftware/TotpPublisher/blob/main/LICENSE" target="_blank">License Info</a>
+            &ndash;
+            <a href="https://hub.docker.com/r/lacunasoftware/totp-publisher" target="_blank">Docker Image</a>
             &ndash;
             <a href="https://github.com/LacunaSoftware/TotpPublisher" target="_blank">Source Code</a>
         </div>
