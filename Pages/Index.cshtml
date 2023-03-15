@@ -1,0 +1,45 @@
+﻿@page
+@using Microsoft.Extensions.Options
+@using OtpNet
+@model IndexModel
+@inject IOptions<TotpConfiguration> config
+@{
+    ViewData["Title"] = "TOTP Publisher";
+
+    var totp = new Totp(Base32Encoding.ToBytes(config.Value.Seed), config.Value.Step, config.Value.Mode, config.Value.Size);
+    var currentValue = totp.ComputeTotp();
+    var updateIn = totp.RemainingSeconds();
+}
+
+<div class="text-center">
+    <h1 class="display-4">@currentValue</h1>
+    <h2>Updating in <span id="updateInText">@updateIn</span></h2>
+    
+    @if (config.Value.Debug) {
+        <h3 class="text-danger">Warning: debug mode is ON !</h3>
+        <p>Seed: @config.Value.Seed</p>
+        <p>Step: @config.Value.Step</p>
+        <p>Mode: @config.Value.Mode</p>
+        <p>Size: @config.Value.Size</p>
+    }
+</div>
+
+@section Scripts {
+<script>
+
+    let updateOn = new Date().getTime() + @updateIn * 1000;
+
+    function updateCountdown() {
+        let updateIn = Math.floor((updateOn - new Date().getTime()) / 1000);
+        if (updateIn < 0) {
+            location.reload();
+        } else {
+            $("#updateInText").text(updateIn);
+            setTimeout(updateCountdown, 1000);
+        }
+    }
+
+    updateCountdown();
+
+</script>
+}
