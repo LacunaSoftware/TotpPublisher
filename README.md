@@ -24,6 +24,10 @@ docker run lacunasoftware/totp-publisher
 docker run -e Totp__Seed=3QXEF33LKVP4U5DIO534UBOGCM -p 80:80 lacunasoftware/totp-publisher
 ```
 
+## Live demo
+
+Check out a live demo [here](https://psc-lacuna-diagkey.azurewebsites.net/).
+
 ## Acknowledgements
 
 This project uses [Otp.NET](https://github.com/kspearrin/Otp.NET) written by [Kyle Spearrin](https://github.com/kspearrin).
