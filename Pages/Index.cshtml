@@ -5,8 +5,6 @@
 @inject IOptions<GeneralConfig> generalConfig
 @inject IOptions<TotpConfig> totpConfig
 @{
-    ViewData["Title"] = "TOTP Publisher";
-
     var totp = new Totp(Base32Encoding.ToBytes(totpConfig.Value.Seed), totpConfig.Value.Step, totpConfig.Value.Mode, totpConfig.Value.Size);
     var currentValue = totp.ComputeTotp();
     var updateIn = totp.RemainingSeconds();
